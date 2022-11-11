@@ -20,4 +20,15 @@ class Enigma
                 :d =>  "#{message_key[3]}#{message_key[4]}"
     }
   end
+
+  def build_offset(message_date = Date.today.strftime("%m%d%y"))
+    squared = (message_date.to_i**2).to_s
+    # binding.pry
+    abcd_offset = {
+                :a => "#{squared[-4]}",
+                :b => "#{squared[-3]}",
+                :c => "#{squared[-2]}",
+                :d => "#{squared[-1]}"
+    }
+  end
 end
