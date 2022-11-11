@@ -22,7 +22,7 @@ RSpec.describe Enigma do
     end
 
     it '#encrypt when no date is given, it defaults the date value to todays date' do
-      expect(expect(@enigma.encrypt('hello world', '02715'))[:date]).to eq('111122')  
+      expect(@enigma.encrypt('hello world', '02715')[:date]).to eq('111122')  
     end
   end
 end
