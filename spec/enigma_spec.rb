@@ -47,6 +47,11 @@ RSpec.describe Enigma do
 
       expect(@enigma.key_plus_offset(keys, offsets)).to be_instance_of(Hash)
       expect(@enigma.key_plus_offset(keys, offsets)).to eq({ a: 3, b: 27, c: 73, d: 20 })
+
+      keys = @enigma.build_key
+      offsets = @enigma.build_offset
+
+      expect(@enigma.key_plus_offset(keys, offsets)).to be_instance_of(Hash)
     end
   end
 end
