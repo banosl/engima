@@ -28,5 +28,10 @@ RSpec.describe Enigma do
     it '#encrypt when no key is given, generates a random one' do
       expect(@enigma.encrypt('hello world')[:key].length).to eq(5)
     end
+
+    it '#build_key can create A,B,C, and D keys from the key' do
+        expect(@enigma.build_key('02715')).to be_instance_of(Hash)
+        expect(@enigma.build_key('02715')).to eq({a: 02, b: 27, c: 71, d: 16})
+    end
   end
 end
