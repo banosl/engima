@@ -33,17 +33,17 @@ RSpec.describe Enigma do
       key = '02715'
       expect(@enigma.build_key(key)).to be_instance_of(Hash)
       expect(@enigma.build_key(key)).to eq({ a: '02', b: '27', c: '71', d: '15' })
-      
+
       key = rand.to_s[2..6]
       expect(@enigma.build_key(key)[:a].length).to eq(2)
     end
 
     it '#build_offset can create A,B,C, and D offsets from the date' do
-        offset = '040895'
+      offset = '040895'
       expect(@enigma.build_offset(offset)).to be_instance_of(Hash)
       expect(@enigma.build_offset(offset)).to eq({ a: '1', b: '0', c: '2', d: '5' })
-      
-      offset = Date.today.strftime("%m%d%y")
+
+      offset = Date.today.strftime('%m%d%y')
       expect(@enigma.build_offset(offset)[:a].length).to eq(1)
     end
 
@@ -61,7 +61,5 @@ RSpec.describe Enigma do
 
       expect(@enigma.key_plus_offset(keys, offsets)).to be_instance_of(Hash)
     end
-
-
   end
 end

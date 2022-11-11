@@ -5,6 +5,11 @@ class Enigma
 
   def encrypt(message, message_key = rand.to_s[2..6], message_date = Date.today.strftime("%m%d%y"))
     # binding.pry
+    keys = build_key(message_key)
+    offsets = build_offset(message_date)
+    # binding.pry
+    key_plus_offset(keys, offsets)
+
     hash = {
       :encryption => message,
       :key => message_key,
