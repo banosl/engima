@@ -2,6 +2,7 @@ require 'date'
 require 'pry'
 
 class Enigma
+
   def encrypt(message, message_key = rand.to_s[2..6], message_date = Date.today.strftime("%m%d%y"))
     # binding.pry
     hash = {
@@ -11,7 +12,7 @@ class Enigma
     }
   end
 
-  def build_key(message_key = rand.to_s[2..6])
+  def build_key(message_key)
     # binding.pry
     abcd_keys = {
                 :a =>  "#{message_key[0]}#{message_key[1]}",
@@ -21,7 +22,7 @@ class Enigma
     }
   end
 
-  def build_offset(message_date = Date.today.strftime("%m%d%y"))
+  def build_offset(message_date)
     squared = (message_date.to_i**2).to_s
     # binding.pry
     abcd_offset = {
