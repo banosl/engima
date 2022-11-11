@@ -32,6 +32,7 @@ RSpec.describe Enigma do
     it '#build_key can create A,B,C, and D keys from the key' do
         expect(@enigma.build_key('02715')).to be_instance_of(Hash)
         expect(@enigma.build_key('02715')).to eq({a: "02", b: "27", c: "71", d: "15"})
+        expect(@enigma.build_key[:a].length).to eq(2) 
     end
   end
 end
