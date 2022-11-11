@@ -15,7 +15,7 @@ RSpec.describe Enigma do
     end
 
     it 'encrypt takes three arguments and makes a hash' do
-      expect(@enigma.encrypt('hello world', '02715', '040895')).to be(Hash)
+      expect(@enigma.encrypt('hello world', '02715', '040895')).to be_instance_of(Hash)
     end
   end
 end
