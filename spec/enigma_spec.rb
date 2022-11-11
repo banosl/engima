@@ -42,11 +42,11 @@ RSpec.describe Enigma do
     end
 
     it '#key_plus_offset' do
-      @enigma.build_key('02715')
-      @enigma.build_offset('040895')
+      keys = @enigma.build_key('02715')
+      offsets = @enigma.build_offset('040895')
 
-      expect(@enigma.key_plus_offset).to be_instance_of(Hash)
-      expect(@enigma.key_plus_offset).to eq({ a: 3, b: 27, c: 73, d: 20 })
+      expect(@enigma.key_plus_offset(keys, offsets)).to be_instance_of(Hash)
+      expect(@enigma.key_plus_offset(keys, offsets)).to eq({ a: 3, b: 27, c: 73, d: 20 })
     end
   end
 end
