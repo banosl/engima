@@ -48,4 +48,27 @@ class Enigma
     }
     # binding.pry
   end
+
+  def shift_letter(message)
+    length = message.length
+    alphabet = ("a".."z").to_a << " "
+    # binding.pry
+    count = 0
+    loop do
+        
+        a_letter = alphabet.rotate!(alphabet.index(message[count]))
+        # binding.pry
+        message.slice!(count)
+        # binding.pry
+        message.insert(count, a_letter.rotate(3)[0])
+        count += 4
+        # binding.pry
+        if count > length
+            break
+        end 
+    end
+    # binding.pry
+    message
+
+  end
 end
