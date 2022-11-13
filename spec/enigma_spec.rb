@@ -16,7 +16,7 @@ RSpec.describe Enigma do
 
     it '#encrypt takes three arguments and makes a hash' do
       expect(@enigma.encrypt('hello world', '02715', '040895')).to be_instance_of(Hash)
-      expect(@enigma.encrypt('hello world', '02715', '040895')[:encryption]).to eq('hello world')
+    #   expect(@enigma.encrypt('hello world', '02715', '040895')[:encryption]).to eq('hello world')
       expect(@enigma.encrypt('hello world', '02715', '040895')[:key]).to eq('02715')
       expect(@enigma.encrypt('hello world', '02715', '040895')[:date]).to eq('040895')
     end
@@ -70,6 +70,12 @@ RSpec.describe Enigma do
       expect(@enigma.shift_letter('hello world')).to eq('keder ohulw')
       expect(@enigma.shift_letter('HELLO WORLD')).to eq('keder ohulw')
       expect(@enigma.shift_letter('HELLO WORLD!')).to eq('keder ohulw!')
+    end
+
+    it '#shift letter is incorporated into #encrypt' do
+        expect(@enigma.encrypt('hello world', '02715', '040895')[:encryption]).to eq('keder ohulw')
+        expect(@enigma.encrypt('hello world', '02715', '040895')[:key]).to eq('02715')
+        expect(@enigma.encrypt('hello world', '02715', '040895')[:date]).to eq('040895')
     end
   end
 end
