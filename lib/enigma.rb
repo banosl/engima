@@ -3,7 +3,7 @@ require 'pry'
 
 class Enigma
   def encrypt(message, message_key = rand.to_s[2..6], message_date = Date.today.strftime('%m%d%y'))
-    shift_letter(message, message_key, message_date)
+    shift_letter_encrypt(message, message_key, message_date)
 
     hash = {
       encryption: message,
@@ -50,7 +50,7 @@ class Enigma
     }
   end
 
-  def shift_letter(message, message_key, message_date)
+  def shift_letter_encrypt(message, message_key, message_date)
     keys = build_key(message_key)
     offsets = build_offset(message_date)
     shift = key_plus_offset(keys, offsets)
@@ -118,5 +118,81 @@ class Enigma
       break if count >= length
     end
     message
-  end # Shift method end
+  end # Shift encrypt method end
+
+  def shift_letter_decrypt(message, message_key, message_date)
+    keys = build_key(message_key)
+    offsets = build_offset(message_date)
+    shift = key_plus_offset(keys, offsets)
+    message.downcase!
+    length = message.length
+binding.pry
+    # A shift
+    alphabet = ('a'..'z').to_a << ' '
+    count = 0
+    loop do
+      if !alphabet.include?(message[count])
+        count += 4
+      else
+        a_letter = alphabet.rotate!(alphabet.index(message[count]))
+        message.slice!(count)
+        message.insert(count, a_letter.rotate(shift[:a])[0])
+        count += 4
+      end
+      break if count >= length
+    end
+
+    # B shift
+    alphabet = ('a'..'z').to_a << ' '
+    count = 1
+    loop do
+      if !alphabet.include?(message[count])
+        count += 4
+      else
+        b_letter = alphabet.rotate!(alphabet.index(message[count]))
+        message.slice!(count)
+        message.insert(count, b_letter.rotate(shift[:b])[0])
+        count += 4
+      end
+      break if count >= length
+    end
+
+    # C shift
+    alphabet = ('a'..'z').to_a << ' '
+    count = 2
+    loop do
+      if !alphabet.include?(message[count])
+        count += 4
+      else
+        c_letter = alphabet.rotate!(alphabet.index(message[count]))
+        message.slice!(count)
+        message.insert(count, c_letter.rotate(shift[:c])[0])
+        count += 4
+      end
+      break if count >= length
+    end
+
+    # D shift
+    alphabet = ('a'..'z').to_a << ' '
+    count = 3
+    loop do
+      if !alphabet.include?(message[count])
+        count += 4
+      else
+
+        d_letter = alphabet.rotate!(alphabet.index(message[count]))
+        message.slice!(count)
+        message.insert(count, d_letter.rotate(shift[:d])[0])
+        count += 4
+      end
+      break if count >= length
+    end
+    message
+  end # Shift decrypt method end
+
+
+
+
+
+
 end # Enigma class end
