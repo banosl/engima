@@ -3,7 +3,6 @@ require 'pry'
 
 class Enigma
   def encrypt(message, message_key = rand.to_s[2..6], message_date = Date.today.strftime('%m%d%y'))
-    
     shift_letter(message, message_key, message_date)
 
     hash = {
@@ -11,6 +10,16 @@ class Enigma
       key: message_key,
       date: message_date
     }
+  end
+
+  def decrypt(message, message_key = rand.to_s[2..6], message_date = Date.today.strftime('%m%d%y'))
+
+
+    hash = {
+        decryption: message,
+        key: message_key,
+        date: message_date
+      }
   end
 
   def build_key(message_key)
@@ -47,7 +56,7 @@ class Enigma
     shift = key_plus_offset(keys, offsets)
     message.downcase!
     length = message.length
-    
+
     # A shift
     alphabet = ('a'..'z').to_a << ' '
     count = 0
@@ -109,6 +118,5 @@ class Enigma
       break if count >= length
     end
     message
-
-  end #Shift method end
-end #Enigma class end
+  end # Shift method end
+end # Enigma class end
