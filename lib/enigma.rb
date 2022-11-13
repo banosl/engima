@@ -4,10 +4,12 @@ require 'pry'
 class Enigma
   def encrypt(message, message_key = rand.to_s[2..6], message_date = Date.today.strftime('%m%d%y'))
     # binding.pry
-    keys = build_key(message_key)
-    offsets = build_offset(message_date)
-    # binding.pry
-    key_plus_offset(keys, offsets)
+    # keys = build_key(message_key)
+    # offsets = build_offset(message_date)
+    # # binding.pry
+    # key_plus_offset(keys, offsets)
+# binding.pry
+    shift_letter(message, message_key, message_date)
 
     hash = {
       encryption: message,
@@ -48,11 +50,14 @@ class Enigma
     # binding.pry
   end
 
-  def shift_letter(message)
+  def shift_letter(message, message_key, message_date)
     # binding.pry
+    keys = build_key(message_key)
+    offsets = build_offset(message_date)
+    shift = key_plus_offset(keys, offsets)
     message.downcase!
     length = message.length
-
+# binding.pry
     # A shift
     alphabet = ('a'..'z').to_a << ' '
     count = 0
@@ -62,7 +67,8 @@ class Enigma
       else
         a_letter = alphabet.rotate!(alphabet.index(message[count]))
         message.slice!(count)
-        message.insert(count, a_letter.rotate(3)[0])
+        # binding.pry
+        message.insert(count, a_letter.rotate(shift[:a])[0])
         count += 4
       end
       break if count >= length
