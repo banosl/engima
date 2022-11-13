@@ -96,5 +96,11 @@ RSpec.describe Enigma do
       expect(@enigma.decrypt('keder ohulw', '02715', '040895')[:date]).to eq('040895')
       expect(@enigma.decrypt('keder ohulw!', '02715', '040895')[:decryption]).to eq('hello world!')
     end
+
+    it '#decrypt can decrypt without a date' do
+        expect(@enigma.decrypt('qkjdxfug rb', '02715')[:decryption]).to eq('hello world')
+        expect(@enigma.decrypt('qkjdxfug rb', '02715')[:key]).to eq('02715')
+        expect(@enigma.decrypt('qkjdxfug rb', '02715')[:date]).to eq('111322')
+      end
   end # end of decrypt describe
 end # end of RSpec
