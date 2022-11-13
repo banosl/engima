@@ -49,6 +49,8 @@ class Enigma
   end
 
   def shift_letter(message)
+    binding.pry
+    message.downcase!
     length = message.length
 
     # A shift
