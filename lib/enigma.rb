@@ -126,7 +126,7 @@ class Enigma
     shift = key_plus_offset(keys, offsets)
     message.downcase!
     length = message.length
-binding.pry
+# binding.pry
     # A shift
     alphabet = ('a'..'z').to_a << ' '
     count = 0
@@ -136,7 +136,7 @@ binding.pry
       else
         a_letter = alphabet.rotate!(alphabet.index(message[count]))
         message.slice!(count)
-        message.insert(count, a_letter.rotate(shift[:a])[0])
+        message.insert(count, a_letter.rotate(-shift[:a])[0])
         count += 4
       end
       break if count >= length
@@ -151,7 +151,7 @@ binding.pry
       else
         b_letter = alphabet.rotate!(alphabet.index(message[count]))
         message.slice!(count)
-        message.insert(count, b_letter.rotate(shift[:b])[0])
+        message.insert(count, b_letter.rotate(-shift[:b])[0])
         count += 4
       end
       break if count >= length
@@ -166,7 +166,7 @@ binding.pry
       else
         c_letter = alphabet.rotate!(alphabet.index(message[count]))
         message.slice!(count)
-        message.insert(count, c_letter.rotate(shift[:c])[0])
+        message.insert(count, c_letter.rotate(-shift[:c])[0])
         count += 4
       end
       break if count >= length
@@ -182,7 +182,7 @@ binding.pry
 
         d_letter = alphabet.rotate!(alphabet.index(message[count]))
         message.slice!(count)
-        message.insert(count, d_letter.rotate(shift[:d])[0])
+        message.insert(count, d_letter.rotate(-shift[:d])[0])
         count += 4
       end
       break if count >= length
