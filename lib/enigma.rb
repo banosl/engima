@@ -49,22 +49,18 @@ class Enigma
   end
 
   def shift_letter(message)
-    binding.pry
+    # binding.pry
     message.downcase!
     length = message.length
 
     # A shift
     alphabet = ('a'..'z').to_a << ' '
-    # binding.pry
     count = 0
     loop do
       a_letter = alphabet.rotate!(alphabet.index(message[count]))
-      # binding.pry
       message.slice!(count)
-      # binding.pry
       message.insert(count, a_letter.rotate(3)[0])
       count += 4
-      # binding.pry
       break if count >= length
     end
 
@@ -73,30 +69,21 @@ class Enigma
     count = 1
     loop do
       b_letter = alphabet.rotate!(alphabet.index(message[count]))
-      # binding.pry
       message.slice!(count)
-      # binding.pry
       message.insert(count, b_letter.rotate(27)[0])
       count += 4
-      # binding.pry
       break if count >= length
-      # binding.pry
     end
-    # binding.pry
 
     # C shift
     alphabet = ('a'..'z').to_a << ' '
     count = 2
     loop do
       c_letter = alphabet.rotate!(alphabet.index(message[count]))
-      # binding.pry
       message.slice!(count)
-      # binding.pry
       message.insert(count, c_letter.rotate(73)[0])
       count += 4
-      # binding.pry
       break if count >= length
-      # binding.pry
     end
 
     # D shift
@@ -104,14 +91,10 @@ class Enigma
     count = 3
     loop do
       d_letter = alphabet.rotate!(alphabet.index(message[count]))
-      # binding.pry
       message.slice!(count)
-      # binding.pry
       message.insert(count, d_letter.rotate(20)[0])
       count += 4
-      # binding.pry
       break if count >= length
-      # binding.pry
     end
     message
   end
