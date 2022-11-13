@@ -62,14 +62,12 @@ RSpec.describe Enigma do
       expect(@enigma.key_plus_offset(keys, offsets)).to be_instance_of(Hash)
     end
 
-    it '#shift_letter can change the first character to another' do
-        key = '02715'
+    it '#shift_letter can change the characters to another for encryption' do
+      key = '02715'
       offset = '040895'
       keys = @enigma.build_key(key)
       offsets = @enigma.build_offset(offset)
-    #   binding.pry
-        # expect(@enigma.shift_letter("hello")).to eq("kello")
-        expect(@enigma.shift_letter("hello world")).to eq('kellr would')
+      expect(@enigma.shift_letter('hello world')).to eq('keder ohulw')
     end
   end
 end
