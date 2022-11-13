@@ -63,13 +63,9 @@ RSpec.describe Enigma do
     end
 
     it '#shift_letter can change the characters to another for encryption' do
-      key = '02715'
-      offset = '040895'
-      keys = @enigma.build_key(key)
-      offsets = @enigma.build_offset(offset)
-      expect(@enigma.shift_letter('hello world')).to eq('keder ohulw')
-      expect(@enigma.shift_letter('HELLO WORLD')).to eq('keder ohulw')
-      expect(@enigma.shift_letter('HELLO WORLD!')).to eq('keder ohulw!')
+      expect(@enigma.shift_letter('hello world', '02715', '040895')).to eq('keder ohulw')
+      expect(@enigma.shift_letter('HELLO WORLD', '02715', '040895')).to eq('keder ohulw')
+      expect(@enigma.shift_letter('HELLO WORLD!', '02715', '040895')).to eq('keder ohulw!')
     end
 
     it '#shift letter is incorporated into #encrypt' do
