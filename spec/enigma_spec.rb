@@ -68,11 +68,11 @@ RSpec.describe Enigma do
     end
 
     it '#shift letter is incorporated into #encrypt' do
-        expect(@enigma.encrypt('hello world', '02715', '040895')[:encryption]).to eq('keder ohulw')
-        expect(@enigma.encrypt('hello world', '02715', '040895')[:key]).to eq('02715')
-        expect(@enigma.encrypt('hello world', '02715', '040895')[:date]).to eq('040895')
+      expect(@enigma.encrypt('hello world', '02715', '040895')[:encryption]).to eq('keder ohulw')
+      expect(@enigma.encrypt('hello world', '02715', '040895')[:key]).to eq('02715')
+      expect(@enigma.encrypt('hello world', '02715', '040895')[:date]).to eq('040895')
     end
-  end #end of encrypt describe
+  end # end of encrypt describe
 
   describe '#decrypt' do
     before(:each) do
@@ -80,10 +80,10 @@ RSpec.describe Enigma do
     end
 
     it '#decrypt can decrypt a message' do
-        expect(@enigma.decrypt('hello world', '02715', '040895')[:decryption]).to eq('hello world')
-        expect(@enigma.decrypt('hello world', '02715', '040895')[:key]).to eq('02715')
-        expect(@enigma.decrypt('hello world', '02715', '040895')[:date]).to eq('040895')
+      expect(@enigma.decrypt('keder ohulw', '02715', '040895')[:decryption]).to eq('hello world')
+      expect(@enigma.decrypt('keder ohulw', '02715', '040895')[:key]).to eq('02715')
+      expect(@enigma.decrypt('keder ohulw', '02715', '040895')[:date]).to eq('040895')
+      expect(@enigma.decrypt('keder ohulw!', '02715', '040895')[:decryption]).to eq('hello world!')
     end
-
-  end #end of decrypt describe
-end #end of RSpec
+  end # end of decrypt describe
+end # end of RSpec
