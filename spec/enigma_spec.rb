@@ -68,6 +68,7 @@ RSpec.describe Enigma do
       keys = @enigma.build_key(key)
       offsets = @enigma.build_offset(offset)
       expect(@enigma.shift_letter('hello world')).to eq('keder ohulw')
+      expect(@enigma.shift_letter('HELLO WORLD')).to eq('keder ohulw')
     end
   end
 end
