@@ -78,6 +78,10 @@ RSpec.describe Enigma do
       expect(@enigma.encrypt('hello world', '02715')[:key]).to eq('02715')
       expect(@enigma.encrypt('hello world', '02715')[:date]).to eq('111322')
     end
+
+    it '#encrypt can encrypt without a key and date' do
+        expect(@enigma.encrypt('hello world')).to be_instance_of(Hash)
+    end
   end # end of encrypt describe
 
   describe '#decrypt' do
@@ -86,8 +90,8 @@ RSpec.describe Enigma do
     end
 
     it '#shift_letter_decrypt can change the characters to another for decryption' do
-        expect(@enigma.shift_letter_decrypt('keder ohulw', '02715', '040895')).to eq('hello world')
-        expect(@enigma.shift_letter_decrypt('keder ohulw!', '02715', '040895')).to eq('hello world!')
+      expect(@enigma.shift_letter_decrypt('keder ohulw', '02715', '040895')).to eq('hello world')
+      expect(@enigma.shift_letter_decrypt('keder ohulw!', '02715', '040895')).to eq('hello world!')
     end
 
     it '#decrypt can decrypt a message' do
@@ -98,9 +102,9 @@ RSpec.describe Enigma do
     end
 
     it '#decrypt can decrypt without a date' do
-        expect(@enigma.decrypt('qkjdxfug rb', '02715')[:decryption]).to eq('hello world')
-        expect(@enigma.decrypt('qkjdxfug rb', '02715')[:key]).to eq('02715')
-        expect(@enigma.decrypt('qkjdxfug rb', '02715')[:date]).to eq('111322')
-      end
+      expect(@enigma.decrypt('qkjdxfug rb', '02715')[:decryption]).to eq('hello world')
+      expect(@enigma.decrypt('qkjdxfug rb', '02715')[:key]).to eq('02715')
+      expect(@enigma.decrypt('qkjdxfug rb', '02715')[:date]).to eq('111322')
+    end
   end # end of decrypt describe
 end # end of RSpec
