@@ -90,12 +90,18 @@ class Enigma
     alphabet = ('a'..'z').to_a << ' '
     count = 3
     loop do
-      d_letter = alphabet.rotate!(alphabet.index(message[count]))
-      message.slice!(count)
-      message.insert(count, d_letter.rotate(20)[0])
-      count += 4
+      if !alphabet.include?(message[count])
+        count += 4
+      else
+
+        d_letter = alphabet.rotate!(alphabet.index(message[count]))
+        message.slice!(count)
+        message.insert(count, d_letter.rotate(20)[0])
+        count += 4
+      end
       break if count >= length
     end
     message
-  end
-end
+
+  end #Shift method end
+end #Enigma class end
