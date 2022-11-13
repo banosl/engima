@@ -13,7 +13,7 @@ class Enigma
   end
 
   def decrypt(message, message_key = rand.to_s[2..6], message_date = Date.today.strftime('%m%d%y'))
-
+    shift_letter_decrypt(message, message_key, message_date)
 
     hash = {
         decryption: message,
@@ -126,7 +126,7 @@ class Enigma
     shift = key_plus_offset(keys, offsets)
     message.downcase!
     length = message.length
-# binding.pry
+
     # A shift
     alphabet = ('a'..'z').to_a << ' '
     count = 0
