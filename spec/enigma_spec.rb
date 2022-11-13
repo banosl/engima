@@ -84,11 +84,11 @@ RSpec.describe Enigma do
         expect(@enigma.shift_letter_decrypt('keder ohulw!', '02715', '040895')).to eq('hello world!')
     end
 
-    # it '#decrypt can decrypt a message' do
-    #   expect(@enigma.decrypt('keder ohulw', '02715', '040895')[:decryption]).to eq('hello world')
-    #   expect(@enigma.decrypt('keder ohulw', '02715', '040895')[:key]).to eq('02715')
-    #   expect(@enigma.decrypt('keder ohulw', '02715', '040895')[:date]).to eq('040895')
-    #   expect(@enigma.decrypt('keder ohulw!', '02715', '040895')[:decryption]).to eq('hello world!')
-    # end
+    it '#decrypt can decrypt a message' do
+      expect(@enigma.decrypt('keder ohulw', '02715', '040895')[:decryption]).to eq('hello world')
+      expect(@enigma.decrypt('keder ohulw', '02715', '040895')[:key]).to eq('02715')
+      expect(@enigma.decrypt('keder ohulw', '02715', '040895')[:date]).to eq('040895')
+      expect(@enigma.decrypt('keder ohulw!', '02715', '040895')[:decryption]).to eq('hello world!')
+    end
   end # end of decrypt describe
 end # end of RSpec
