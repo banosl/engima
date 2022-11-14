@@ -21,7 +21,7 @@ class Enigma
   end
 
   def build_key(message_key)
-    abcd_keys = {
+    {
       a: "#{message_key[0]}#{message_key[1]}",
       b: "#{message_key[1]}#{message_key[2]}",
       c: "#{message_key[2]}#{message_key[3]}",

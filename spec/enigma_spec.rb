@@ -74,9 +74,8 @@ RSpec.describe Enigma do
     end
 
     it '#encrypt can encrypt without a date' do
-      expect(@enigma.encrypt('hello world', '02715')[:encryption]).to eq('qkjdxfug rb')
       expect(@enigma.encrypt('hello world', '02715')[:key]).to eq('02715')
-      expect(@enigma.encrypt('hello world', '02715')[:date]).to eq('111322')
+      expect(@enigma.encrypt('hello world', '02715')[:date]).to eq(Date.today.strftime('%m%d%y'))
     end
 
     it '#encrypt can encrypt without a key and date' do
