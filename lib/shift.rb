@@ -1,5 +1,5 @@
 module Shift
-  # A shift
+
   def a_shift(message, shift, encrypt)
     length = message.length
     message.downcase!
@@ -22,7 +22,6 @@ module Shift
     end
   end
 
-  # B shift
   def b_shift(message, shift, encrypt)
     length = message.length
     message.downcase!
