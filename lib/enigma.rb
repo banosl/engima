@@ -1,7 +1,9 @@
 require 'date'
+require_relative 'shift'
 require 'pry'
 
 class Enigma
+  include Shift
   def encrypt(message, message_key = rand.to_s[2..6], message_date = Date.today.strftime('%m%d%y'))
     shift_letter_encrypt(message, message_key, message_date)
     {
@@ -48,27 +50,29 @@ class Enigma
     }
   end
 
-  def shift_letter_encrypt(message, message_key, message_date)
+
+  def shift_letter_encrypt(message, message_key, message_date, encrypt = true)
     keys = build_key(message_key)
     offsets = build_offset(message_date)
     shift = key_plus_offset(keys, offsets)
     message.downcase!
     length = message.length
 
+    a_shift(message, shift, encrypt)
     # A shift
-    alphabet = ('a'..'z').to_a << ' '
-    count = 0
-    loop do
-      if !alphabet.include?(message[count])
-        count += 4
-      else
-        a_letter = alphabet.rotate!(alphabet.index(message[count]))
-        message.slice!(count)
-        message.insert(count, a_letter.rotate(shift[:a])[0])
-        count += 4
-      end
-      break if count >= length
-    end
+    # alphabet = ('a'..'z').to_a << ' '
+    # count = 0
+    # loop do
+    #   if !alphabet.include?(message[count])
+    #     count += 4
+    #   else
+    #     a_letter = alphabet.rotate!(alphabet.index(message[count]))
+    #     message.slice!(count)
+    #     message.insert(count, a_letter.rotate(shift[:a])[0])
+    #     count += 4
+    #   end
+    #   break if count >= length
+    # end
 
     # B shift
     alphabet = ('a'..'z').to_a << ' '
