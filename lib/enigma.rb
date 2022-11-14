@@ -59,35 +59,21 @@ class Enigma
     length = message.length
 
     a_shift(message, shift, encrypt)
-    # A shift
+    b_shift(message, shift, encrypt)
+    # B shift
     # alphabet = ('a'..'z').to_a << ' '
-    # count = 0
+    # count = 1
     # loop do
     #   if !alphabet.include?(message[count])
     #     count += 4
     #   else
-    #     a_letter = alphabet.rotate!(alphabet.index(message[count]))
+    #     b_letter = alphabet.rotate!(alphabet.index(message[count]))
     #     message.slice!(count)
-    #     message.insert(count, a_letter.rotate(shift[:a])[0])
+    #     message.insert(count, b_letter.rotate(shift[:b])[0])
     #     count += 4
     #   end
     #   break if count >= length
     # end
-
-    # B shift
-    alphabet = ('a'..'z').to_a << ' '
-    count = 1
-    loop do
-      if !alphabet.include?(message[count])
-        count += 4
-      else
-        b_letter = alphabet.rotate!(alphabet.index(message[count]))
-        message.slice!(count)
-        message.insert(count, b_letter.rotate(shift[:b])[0])
-        count += 4
-      end
-      break if count >= length
-    end
 
     # C shift
     alphabet = ('a'..'z').to_a << ' '
