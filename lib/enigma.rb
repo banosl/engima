@@ -14,10 +14,10 @@ class Enigma
   def decrypt(message, message_key, message_date)
     shift_letter_decrypt(message, message_key, message_date)
     {
-        decryption: message,
-        key: message_key,
-        date: message_date
-      }
+      decryption: message,
+      key: message_key,
+      date: message_date
+    }
   end
 
   def build_key(message_key)
@@ -31,7 +31,7 @@ class Enigma
 
   def build_offset(message_date)
     squared = (message_date.to_i**2).to_s
-    abcd_offset = {
+    {
       a: "#{squared[-4]}",
       b: "#{squared[-3]}",
       c: "#{squared[-2]}",
@@ -40,7 +40,7 @@ class Enigma
   end
 
   def key_plus_offset(keys, offsets)
-    sum = {
+    {
       a: keys[:a].to_i + offsets[:a].to_i,
       b: keys[:b].to_i + offsets[:b].to_i,
       c: keys[:c].to_i + offsets[:c].to_i,
