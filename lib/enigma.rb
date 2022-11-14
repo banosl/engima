@@ -4,7 +4,6 @@ require 'pry'
 class Enigma
   def encrypt(message, message_key = rand.to_s[2..6], message_date = Date.today.strftime('%m%d%y'))
     shift_letter_encrypt(message, message_key, message_date)
-
     {
       encryption: message,
       key: message_key,
@@ -14,7 +13,6 @@ class Enigma
 
   def decrypt(message, message_key, message_date)
     shift_letter_decrypt(message, message_key, message_date)
-
     {
         decryption: message,
         key: message_key,
@@ -109,7 +107,6 @@ class Enigma
       if !alphabet.include?(message[count])
         count += 4
       else
-
         d_letter = alphabet.rotate!(alphabet.index(message[count]))
         message.slice!(count)
         message.insert(count, d_letter.rotate(shift[:d])[0])
@@ -179,7 +176,6 @@ class Enigma
       if !alphabet.include?(message[count])
         count += 4
       else
-
         d_letter = alphabet.rotate!(alphabet.index(message[count]))
         message.slice!(count)
         message.insert(count, d_letter.rotate(-shift[:d])[0])
