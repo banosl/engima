@@ -100,4 +100,14 @@ RSpec.describe Enigma do
       expect(@enigma.decrypt('keder ohulw!', '02715', '040895')[:decryption]).to eq('hello world!')
     end
   end # end of decrypt describe
+
+  describe '#crack' do
+    before(:each) do
+      @enigma = Enigma.new
+    end
+
+    it 'enigma can crack an encryption with a date' do
+      expect(@enigma.encrypt("hello world end", '08304', '291018')[:encryption]).to eq("vjqtbeaweqihssi")
+    end
+  end
 end # end of RSpec
