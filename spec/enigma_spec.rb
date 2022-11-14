@@ -61,10 +61,10 @@ RSpec.describe Enigma do
       expect(@enigma.key_plus_offset(keys, offsets)).to be_instance_of(Hash)
     end
 
-    it '#shift_letter_encrypt can change the characters to another for encryption' do
-      expect(@enigma.shift_letter_encrypt('hello world', '02715', '040895')).to eq('keder ohulw')
-      expect(@enigma.shift_letter_encrypt('HELLO WORLD', '02715', '040895')).to eq('keder ohulw')
-      expect(@enigma.shift_letter_encrypt('HELLO WORLD!', '02715', '040895')).to eq('keder ohulw!')
+    it '#shift_encrypt can change the characters to another for encryption' do
+      expect(@enigma.shift_encrypt('hello world', '02715', '040895')).to eq('keder ohulw')
+      expect(@enigma.shift_encrypt('HELLO WORLD', '02715', '040895')).to eq('keder ohulw')
+      expect(@enigma.shift_encrypt('HELLO WORLD!', '02715', '040895')).to eq('keder ohulw!')
     end
 
     it '#shift letter_encrypt is incorporated into #encrypt' do

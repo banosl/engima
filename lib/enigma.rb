@@ -5,7 +5,7 @@ require 'pry'
 class Enigma
   include Shift
   def encrypt(message, message_key = rand.to_s[2..6], message_date = Date.today.strftime('%m%d%y'))
-    shift_letter_encrypt(message, message_key, message_date)
+    shift_encrypt(message, message_key, message_date)
     {
       encryption: message,
       key: message_key,
@@ -51,7 +51,7 @@ class Enigma
   end
 
 
-  def shift_letter_encrypt(message, message_key, message_date, encrypt = true)
+  def shift_encrypt(message, message_key, message_date, encrypt = true)
     keys = build_key(message_key)
     offsets = build_offset(message_date)
     shift = key_plus_offset(keys, offsets)
@@ -61,21 +61,8 @@ class Enigma
     a_shift(message, shift, encrypt)
     b_shift(message, shift, encrypt)
     c_shift(message, shift, encrypt)
+    d_shift(message, shift, encrypt)
 
-    # D shift
-    alphabet = ('a'..'z').to_a << ' '
-    count = 3
-    loop do
-      if !alphabet.include?(message[count])
-        count += 4
-      else
-        d_letter = alphabet.rotate!(alphabet.index(message[count]))
-        message.slice!(count)
-        message.insert(count, d_letter.rotate(shift[:d])[0])
-        count += 4
-      end
-      break if count >= length
-    end
     message
   end # Shift encrypt method end
 
