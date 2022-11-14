@@ -14,7 +14,7 @@ module Shift
         if encrypt == true
           message.insert(count, a_letter.rotate(shift[:a])[0])
         else
-          message.insert(count, a_letter.rotate(shift[:a])[0])
+          message.insert(count, a_letter.rotate(-shift[:a])[0])
         end
         count += 4
       end

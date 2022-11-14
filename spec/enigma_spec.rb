@@ -88,9 +88,9 @@ RSpec.describe Enigma do
       @enigma = Enigma.new
     end
 
-    it '#shift_letter_decrypt can change the characters to another for decryption' do
-      expect(@enigma.shift_letter_decrypt('keder ohulw', '02715', '040895')).to eq('hello world')
-      expect(@enigma.shift_letter_decrypt('keder ohulw!', '02715', '040895')).to eq('hello world!')
+    it '#shift_decrypt can change the characters to another for decryption' do
+      expect(@enigma.shift_decrypt('keder ohulw', '02715', '040895')).to eq('hello world')
+      expect(@enigma.shift_decrypt('keder ohulw!', '02715', '040895')).to eq('hello world!')
     end
 
     it '#decrypt can decrypt a message' do

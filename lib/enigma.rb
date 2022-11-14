@@ -14,7 +14,7 @@ class Enigma
   end
 
   def decrypt(message, message_key, message_date)
-    shift_letter_decrypt(message, message_key, message_date)
+    shift_decrypt(message, message_key, message_date)
     {
       decryption: message,
       key: message_key,
@@ -55,8 +55,6 @@ class Enigma
     keys = build_key(message_key)
     offsets = build_offset(message_date)
     shift = key_plus_offset(keys, offsets)
-    message.downcase!
-    length = message.length
 
     a_shift(message, shift, encrypt)
     b_shift(message, shift, encrypt)
@@ -66,27 +64,28 @@ class Enigma
     message
   end # Shift encrypt method end
 
-  def shift_letter_decrypt(message, message_key, message_date)
+  def shift_decrypt(message, message_key, message_date, encrypt = false)
     keys = build_key(message_key)
     offsets = build_offset(message_date)
     shift = key_plus_offset(keys, offsets)
     message.downcase!
     length = message.length
 
+    a_shift(message, shift, encrypt)
     # A shift
-    alphabet = ('a'..'z').to_a << ' '
-    count = 0
-    loop do
-      if !alphabet.include?(message[count])
-        count += 4
-      else
-        a_letter = alphabet.rotate!(alphabet.index(message[count]))
-        message.slice!(count)
-        message.insert(count, a_letter.rotate(-shift[:a])[0])
-        count += 4
-      end
-      break if count >= length
-    end
+    # alphabet = ('a'..'z').to_a << ' '
+    # count = 0
+    # loop do
+    #   if !alphabet.include?(message[count])
+    #     count += 4
+    #   else
+    #     a_letter = alphabet.rotate!(alphabet.index(message[count]))
+    #     message.slice!(count)
+    #     message.insert(count, a_letter.rotate(-shift[:a])[0])
+    #     count += 4
+    #   end
+    #   break if count >= length
+    # end
 
     # B shift
     alphabet = ('a'..'z').to_a << ' '
