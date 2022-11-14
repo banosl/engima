@@ -60,35 +60,7 @@ class Enigma
 
     a_shift(message, shift, encrypt)
     b_shift(message, shift, encrypt)
-    # B shift
-    # alphabet = ('a'..'z').to_a << ' '
-    # count = 1
-    # loop do
-    #   if !alphabet.include?(message[count])
-    #     count += 4
-    #   else
-    #     b_letter = alphabet.rotate!(alphabet.index(message[count]))
-    #     message.slice!(count)
-    #     message.insert(count, b_letter.rotate(shift[:b])[0])
-    #     count += 4
-    #   end
-    #   break if count >= length
-    # end
-
-    # C shift
-    alphabet = ('a'..'z').to_a << ' '
-    count = 2
-    loop do
-      if !alphabet.include?(message[count])
-        count += 4
-      else
-        c_letter = alphabet.rotate!(alphabet.index(message[count]))
-        message.slice!(count)
-        message.insert(count, c_letter.rotate(shift[:c])[0])
-        count += 4
-      end
-      break if count >= length
-    end
+    c_shift(message, shift, encrypt)
 
     # D shift
     alphabet = ('a'..'z').to_a << ' '

@@ -44,4 +44,26 @@ module Shift
       break if count >= length
     end
   end
+
+  def c_shift(message, shift, encrypt)
+    length = message.length
+    message.downcase!
+    alphabet = ('a'..'z').to_a << ' '
+    count = 2
+    loop do
+      if !alphabet.include?(message[count])
+        count += 4
+      else
+        c_letter = alphabet.rotate!(alphabet.index(message[count]))
+        message.slice!(count)
+        if encrypt == true
+          message.insert(count, c_letter.rotate(shift[:c])[0])
+        else
+          message.insert(count, c_letter.rotate(-shift[:c])[0])
+        end
+        count += 4
+      end
+      break if count >= length
+    end
+  end
 end
