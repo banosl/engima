@@ -12,7 +12,7 @@ class Enigma
     }
   end
 
-  def decrypt(message, message_key = rand.to_s[2..6], message_date = Date.today.strftime('%m%d%y'))
+  def decrypt(message, message_key, message_date)
     shift_letter_decrypt(message, message_key, message_date)
 
     {
@@ -189,10 +189,4 @@ class Enigma
     end
     message
   end # Shift decrypt method end
-
-
-
-
-
-
 end # Enigma class end
