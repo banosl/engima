@@ -5,7 +5,7 @@ class Enigma
   def encrypt(message, message_key = rand.to_s[2..6], message_date = Date.today.strftime('%m%d%y'))
     shift_letter_encrypt(message, message_key, message_date)
 
-    hash = {
+    {
       encryption: message,
       key: message_key,
       date: message_date
@@ -15,7 +15,7 @@ class Enigma
   def decrypt(message, message_key = rand.to_s[2..6], message_date = Date.today.strftime('%m%d%y'))
     shift_letter_decrypt(message, message_key, message_date)
 
-    hash = {
+    {
         decryption: message,
         key: message_key,
         date: message_date
