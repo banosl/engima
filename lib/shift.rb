@@ -1,7 +1,6 @@
 module Shift
   def shift_loop(alphabet, count, message, letter_shift, length, encrypt)
     loop do
-      # binding.pry
       if !alphabet.include?(message[count])
         count += 4
       else
@@ -12,25 +11,18 @@ module Shift
         else
           message.insert(count, letter_to_replace.rotate(-letter_shift).first)
         end
-        # binding.pry
         count += 4
       end
       break if count >= length
     end
-    # binding.pry
   end
 
   def a_shift(message, shift, encrypt, crack)
-    # binding.pry
     length = message.length
     message.downcase!
     letter_shift = shift[:a]
     alphabet = ('a'..'z').to_a << ' '
     count = 0
-    # if crack == true
-    #   message.reverse!
-    #   count = 2
-    # end
     shift_loop(alphabet, count, message, letter_shift, length, encrypt)
   end
 
@@ -49,9 +41,6 @@ module Shift
     letter_shift = shift[:c]
     alphabet = ('a'..'z').to_a << ' '
     count = 2
-    # if crack == true
-    #   count = 0
-    # end
     shift_loop(alphabet, count, message, letter_shift, length, encrypt)
   end
 
