@@ -62,9 +62,9 @@ RSpec.describe Enigma do
     end
 
     it '#shift_encrypt can change the characters to another for encryption' do
-      expect(@enigma.shift_encrypt('hello world', '02715', '040895')).to eq('keder ohulw')
-      expect(@enigma.shift_encrypt('HELLO WORLD', '02715', '040895')).to eq('keder ohulw')
-      expect(@enigma.shift_encrypt('HELLO WORLD!', '02715', '040895')).to eq('keder ohulw!')
+      expect(@enigma.shift_encrypt('hello world', '02715', '040895')[:encryption]).to eq('keder ohulw')
+      expect(@enigma.shift_encrypt('HELLO WORLD', '02715', '040895')[:encryption]).to eq('keder ohulw')
+      expect(@enigma.shift_encrypt('HELLO WORLD!', '02715', '040895')[:encryption]).to eq('keder ohulw!')
     end
 
     it '#shift encrypt is incorporated into #encrypt' do
@@ -89,8 +89,8 @@ RSpec.describe Enigma do
     end
 
     it '#shift_decrypt can change the characters to another for decryption' do
-      expect(@enigma.shift_decrypt('keder ohulw', '02715', '040895')).to eq('hello world')
-      expect(@enigma.shift_decrypt('keder ohulw!', '02715', '040895')).to eq('hello world!')
+      expect(@enigma.shift_decrypt('keder ohulw', '02715', '040895')[:decryption]).to eq('hello world')
+      expect(@enigma.shift_decrypt('keder ohulw!', '02715', '040895')[:decryption]).to eq('hello world!')
     end
 
     it '#decrypt can decrypt a message' do
