@@ -41,6 +41,10 @@ module Shift
     letter_shift = shift[:a]
     alphabet = ('a'..'z').to_a << ' '
     count = 0
+    if crack == true
+        alphabet.reverse!
+        count = 2
+    end
     shift_loop(alphabet, count, message, letter_shift, length, encrypt)
   end
 

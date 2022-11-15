@@ -111,11 +111,10 @@ class Enigma
     offsets = build_offset(message_date)
     keys = shift_minus_offset(offsets)
     shift = key_plus_offset(keys, offsets)
-
     a_shift(message, shift, encrypt, crack)
-    # b_shift(message, shift, encrypt, crack)
-    # c_shift(message, shift, encrypt, crack)
-    # d_shift(message, shift, encrypt, crack)
+    b_shift(message, shift, encrypt, crack)
+    c_shift(message, shift, encrypt, crack)
+    d_shift(message, shift, encrypt, crack)
 
   end
 end
