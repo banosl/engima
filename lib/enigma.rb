@@ -24,7 +24,8 @@ class Enigma
 
   def crack(message, message_date = Date.today.strftime('%m%d%y'))
     offsets = build_offset(message_date)
-    binding.pry
+    keys = shift_minus_offset(offsets)
+    # binding.pry
     
     {
       decryption: message,
@@ -40,6 +41,17 @@ class Enigma
       c: "#{message_key[2]}#{message_key[3]}",
       d: "#{message_key[3]}#{message_key[4]}"
     }
+  end
+
+  def reverse_key(keys)
+    reversed = ""
+    keys.each do|key, num|
+      reversed << (num.to_s[-1])
+    end   
+    until reversed.length == 5
+      reversed.insert(0, "0")
+    end
+    reversed
   end
 
   def build_offset(message_date)
