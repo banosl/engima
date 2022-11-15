@@ -106,9 +106,16 @@ RSpec.describe Enigma do
       @enigma = Enigma.new
     end
 
+    it '#determine_shift from the difference between _end and the encyrption' do
+      expect(@enigma.determine_shift('vjqtbeaweqihssi')).to be_instance_of(Hash)
+      expect(@enigma.determine_shift('vjqtbeaweqihssi')[:a]).to eq(5)
+      expect(@enigma.determine_shift('vjqtbeaweqihssi')[:b]).to eq(5)
+      expect(@enigma.determine_shift('vjqtbeaweqihssi')[:c]).to eq(14)
+      expect(@enigma.determine_shift('vjqtbeaweqihssi')[:d]).to eq(-19)
+    end
+
     it '#shift minus offset' do
       offsets = @enigma.build_offset('291018')
-      # shift = { a: 14, b: 86, c: 32, d: 8 }
 
       expect(@enigma.shift_minus_offset(offsets)).to be_instance_of(Hash)
       expect(@enigma.shift_minus_offset(offsets)).to eq({ a: 8, b: 83, c: 30, d: 4 })
