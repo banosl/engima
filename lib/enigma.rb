@@ -6,32 +6,14 @@ class Enigma
   include Shift
   def encrypt(message, message_key = rand.to_s[2..6], message_date = Date.today.strftime('%m%d%y'))
     shift_encrypt(message, message_key, message_date)
-    {
-      encryption: message,
-      key: message_key,
-      date: message_date
-    }
   end
 
   def decrypt(message, message_key, message_date)
     shift_decrypt(message, message_key, message_date)
-    {
-      decryption: message,
-      key: message_key,
-      date: message_date
-    }
   end
 
   def crack(message, message_date = Date.today.strftime('%m%d%y'))
-    # offsets = build_offset(message_date)
-    # message_key = reverse_key(keys)
     shift_crack(message, message_date)
-
-    # {
-    #   decryption: message,
-    #   date: message_date,
-    #   # key: message_key
-    # }
   end
 
   def build_key(message_key)
@@ -100,8 +82,11 @@ class Enigma
     b_shift(message, shift, encrypt, crack)
     c_shift(message, shift, encrypt, crack)
     d_shift(message, shift, encrypt, crack)
-
-    message
+    {
+      encryption: message,
+      key: message_key,
+      date: message_date
+    }
   end
 
   def shift_decrypt(message, message_key, message_date, encrypt = false, crack = false)
@@ -113,8 +98,11 @@ class Enigma
     b_shift(message, shift, encrypt, crack)
     c_shift(message, shift, encrypt, crack)
     d_shift(message, shift, encrypt, crack)
-
-    message
+    {
+      decryption: message,
+      key: message_key,
+      date: message_date
+    }
   end
 
   def shift_crack(message, message_date, encrypt = false, crack = true)
