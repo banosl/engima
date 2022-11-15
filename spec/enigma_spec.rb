@@ -62,9 +62,9 @@ RSpec.describe Enigma do
     end
 
     it '#shift_encrypt can change the characters to another for encryption' do
-      expect(@enigma.shift_encrypt('hello world', '02715', '040895')).to eq('keder ohulw')
-      expect(@enigma.shift_encrypt('HELLO WORLD', '02715', '040895')).to eq('keder ohulw')
-      expect(@enigma.shift_encrypt('HELLO WORLD!', '02715', '040895')).to eq('keder ohulw!')
+      expect(@enigma.shift_encrypt('hello world', '02715', '040895')[:encryption]).to eq('keder ohulw')
+      expect(@enigma.shift_encrypt('HELLO WORLD', '02715', '040895')[:encryption]).to eq('keder ohulw')
+      expect(@enigma.shift_encrypt('HELLO WORLD!', '02715', '040895')[:encryption]).to eq('keder ohulw!')
     end
 
     it '#shift encrypt is incorporated into #encrypt' do
@@ -79,9 +79,9 @@ RSpec.describe Enigma do
     end
 
     it '#encrypt can encrypt without a key and date' do
-        expect(@enigma.encrypt('hello world')).to be_instance_of(Hash)
+      expect(@enigma.encrypt('hello world')).to be_instance_of(Hash)
     end
-  end # end of encrypt describe
+  end
 
   describe '#decrypt' do
     before(:each) do
@@ -89,8 +89,8 @@ RSpec.describe Enigma do
     end
 
     it '#shift_decrypt can change the characters to another for decryption' do
-      expect(@enigma.shift_decrypt('keder ohulw', '02715', '040895')).to eq('hello world')
-      expect(@enigma.shift_decrypt('keder ohulw!', '02715', '040895')).to eq('hello world!')
+      expect(@enigma.shift_decrypt('keder ohulw', '02715', '040895')[:decryption]).to eq('hello world')
+      expect(@enigma.shift_decrypt('keder ohulw!', '02715', '040895')[:decryption]).to eq('hello world!')
     end
 
     it '#decrypt can decrypt a message' do
@@ -99,35 +99,43 @@ RSpec.describe Enigma do
       expect(@enigma.decrypt('keder ohulw', '02715', '040895')[:date]).to eq('040895')
       expect(@enigma.decrypt('keder ohulw!', '02715', '040895')[:decryption]).to eq('hello world!')
     end
-  end # end of decrypt describe
+  end
 
   describe '#crack' do
     before(:each) do
       @enigma = Enigma.new
     end
 
+    it '#determine_shift from the difference between _end and the encyrption' do
+      expect(@enigma.determine_shift('vjqtbeaweqihssi')).to be_instance_of(Hash)
+      expect(@enigma.determine_shift('vjqtbeaweqihssi')[:a]).to eq(5)
+      expect(@enigma.determine_shift('vjqtbeaweqihssi')[:b]).to eq(5)
+      expect(@enigma.determine_shift('vjqtbeaweqihssi')[:c]).to eq(14)
+      expect(@enigma.determine_shift('vjqtbeaweqihssi')[:d]).to eq(8)
+    end
+
     it '#shift minus offset' do
       offsets = @enigma.build_offset('291018')
-      # shift = { a: 14, b: 86, c: 32, d: 8 }
-
-      expect(@enigma.shift_minus_offset(offsets)).to be_instance_of(Hash)
-      expect(@enigma.shift_minus_offset(offsets)).to eq({ a: 8, b: 83, c: 30, d: 4 })
+      shift = @enigma.determine_shift('vjqtbeaweqihssi')
+      expect(@enigma.shift_minus_offset(shift, offsets)).to be_instance_of(Hash)
+      expect(@enigma.shift_minus_offset(shift, offsets)).to eq({ a: -1, b: 2, c: 12, d: 4 })
     end
 
     it '#reverse_key can create the key from the shift_minus_offset' do
       offsets = @enigma.build_offset('291018')
-      keys = @enigma.shift_minus_offset(offsets)
+      shift = @enigma.determine_shift('vjqtbeaweqihssi')
+      keys = @enigma.shift_minus_offset(shift, offsets)
 
-      expect(@enigma.reverse_key(keys)).to eq('08304')
+      expect(@enigma.reverse_key(keys)).to eq('06991')
     end
 
     it 'enigma can crack an encryption with a date' do
-      expect(@enigma.encrypt("hello world end", '08304', '291018')[:encryption]).to eq("vjqtbeaweqihssi")
-      expect(@enigma.crack("vjqtbeaweqihssi", "291018")[:decryption]).to eq("hello world end")
-      expect(@enigma.crack("vjqtbeaweqihssi", "291018")[:date]).to eq("291018")
-      expect(@enigma.crack("vjqtbeaweqihssi", "291018")[:key]).to eq("08304")
-      binding.pry
-      expect(@enigma.crack("vjqtbeaweqihssi")[:decryption]).to eq("hello world end")
+      expect(@enigma.encrypt('hello world end', '08304', '291018')[:encryption]).to eq('vjqtbeaweqihssi')
+      expect(@enigma.crack('vjqtbeaweqihssi', '291018')[:decryption]).to eq('hello world end')
+      expect(@enigma.crack('vjqtbeaweqihssi', '291018')[:date]).to eq('291018')
+      expect(@enigma.crack('vjqtbeaweqihssi', '291018')[:key]).to eq('06991')
+      expect(@enigma.crack('vjqtbeaweqihssi')[:decryption]).to eq('hello world end')
+      expect(@enigma.crack('llmaubqpaylnselgb efo ncbtlcxd')[:decryption]).to eq('blackberry pie is the best end')
     end
   end
-end # end of RSpec
+end

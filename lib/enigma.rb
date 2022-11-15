@@ -6,33 +6,14 @@ class Enigma
   include Shift
   def encrypt(message, message_key = rand.to_s[2..6], message_date = Date.today.strftime('%m%d%y'))
     shift_encrypt(message, message_key, message_date)
-    {
-      encryption: message,
-      key: message_key,
-      date: message_date
-    }
   end
 
   def decrypt(message, message_key, message_date)
     shift_decrypt(message, message_key, message_date)
-    {
-      decryption: message,
-      key: message_key,
-      date: message_date
-    }
   end
 
   def crack(message, message_date = Date.today.strftime('%m%d%y'))
     shift_crack(message, message_date)
-    offsets = build_offset(message_date)
-    keys = shift_minus_offset(offsets)
-    message_key = reverse_key(keys)
-
-    {
-      decryption: message,
-      date: message_date,
-      key: message_key
-    }
   end
 
   def build_key(message_key)
@@ -47,7 +28,7 @@ class Enigma
   def reverse_key(keys)
     reversed = ''
     keys.each do |_key, num|
-      reversed << (num.to_s[-1])
+      reversed << ((num + 27).to_s[-1])
     end
     reversed.insert(0, '0') until reversed.length == 5
     reversed
@@ -72,12 +53,23 @@ class Enigma
     }
   end
 
-  def shift_minus_offset(offsets)
+  def shift_minus_offset(shift, offsets)
     {
-      a: (14 - offsets[:a].to_i),
-      b: (86 - offsets[:b].to_i),
-      c: (32 - offsets[:c].to_i),
-      d: (8 - offsets[:d].to_i)
+      a: (shift[:a] - offsets[:a].to_i),
+      b: (shift[:b] - offsets[:b].to_i),
+      c: (shift[:c] - offsets[:c].to_i),
+      d: (shift[:d] - offsets[:d].to_i)
+    }
+  end
+
+  def determine_shift(message)
+    message.reverse!
+    tail = 'dne '
+    shift = {
+      a: (message[0].ord - tail[0].ord),
+      b: (message[1].ord - tail[1].ord),
+      c: (message[2].ord - tail[2].ord),
+      d: (message[3].ord - 123) + 27
     }
   end
 
@@ -90,8 +82,11 @@ class Enigma
     b_shift(message, shift, encrypt, crack)
     c_shift(message, shift, encrypt, crack)
     d_shift(message, shift, encrypt, crack)
-
-    message
+    {
+      encryption: message,
+      key: message_key,
+      date: message_date
+    }
   end
 
   def shift_decrypt(message, message_key, message_date, encrypt = false, crack = false)
@@ -103,19 +98,29 @@ class Enigma
     b_shift(message, shift, encrypt, crack)
     c_shift(message, shift, encrypt, crack)
     d_shift(message, shift, encrypt, crack)
-
-    message
+    {
+      decryption: message,
+      key: message_key,
+      date: message_date
+    }
   end
 
   def shift_crack(message, message_date, encrypt = false, crack = true)
     offsets = build_offset(message_date)
-    keys = shift_minus_offset(offsets)
-    shift = key_plus_offset(keys, offsets)
+    shift = determine_shift(message)
+    keys = shift_minus_offset(shift, offsets)
+
     a_shift(message, shift, encrypt, crack)
     b_shift(message, shift, encrypt, crack)
     c_shift(message, shift, encrypt, crack)
     d_shift(message, shift, encrypt, crack)
 
     message.reverse!
+    message_key = reverse_key(keys)
+    {
+      decryption: message,
+      date: message_date,
+      key: message_key
+    }
   end
 end
