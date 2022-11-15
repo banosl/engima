@@ -46,9 +46,10 @@ class Enigma
   def reverse_key(keys)
     reversed = ''
     # binding.pry
-    keys.each do |_key, num|
+    keys.each do |key, num|
       reversed << ((num + 27).to_s[-1])
     end
+    # binding.pry
     reversed.insert(0, '0') until reversed.length == 5
     reversed
     # binding.pry
