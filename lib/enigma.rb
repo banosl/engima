@@ -81,6 +81,19 @@ class Enigma
     }
   end
 
+  def determine_shift(message)
+    message.reverse!.slice!(4..-1)
+    tail = "dne "
+    shift = {
+      a:(message[0].ord - tail[0].ord),
+      b:(message[1].ord - tail[1].ord),
+      c:(message[2].ord - tail[2].ord),
+      d:(message[3].ord - 123)
+    }
+    # binding.pry
+
+  end
+
   def shift_encrypt(message, message_key, message_date, encrypt = true, crack = false)
     keys = build_key(message_key)
     offsets = build_offset(message_date)
