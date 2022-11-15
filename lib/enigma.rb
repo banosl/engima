@@ -116,5 +116,6 @@ class Enigma
     c_shift(message, shift, encrypt, crack)
     d_shift(message, shift, encrypt, crack)
 
+    message.reverse!
   end
 end
