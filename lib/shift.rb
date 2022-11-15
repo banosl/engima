@@ -35,7 +35,7 @@ module Shift
 #       end
 #   end
 
-  def a_shift(message, shift, encrypt)
+  def a_shift(message, shift, encrypt, crack)
     length = message.length
     message.downcase!
     letter_shift = shift[:a]
@@ -44,7 +44,7 @@ module Shift
     shift_loop(alphabet, count, message, letter_shift, length, encrypt)
   end
 
-  def b_shift(message, shift, encrypt)
+  def b_shift(message, shift, encrypt, crack)
     length = message.length
     message.downcase!
     letter_shift = shift[:b]
@@ -53,7 +53,7 @@ module Shift
     shift_loop(alphabet, count, message, letter_shift, length, encrypt)
   end
 
-  def c_shift(message, shift, encrypt)
+  def c_shift(message, shift, encrypt, crack)
     length = message.length
     message.downcase!
     letter_shift = shift[:c]
@@ -62,7 +62,7 @@ module Shift
     shift_loop(alphabet, count, message, letter_shift, length, encrypt)
   end
 
-  def d_shift(message, shift, encrypt)
+  def d_shift(message, shift, encrypt, crack)
     length = message.length
     message.downcase!
     letter_shift = shift[:d]
