@@ -81,7 +81,7 @@ class Enigma
     }
   end
 
-  def shift_encrypt(message, message_key, message_date, encrypt = true)
+  def shift_encrypt(message, message_key, message_date, encrypt = true, crack = false)
     keys = build_key(message_key)
     offsets = build_offset(message_date)
     shift = key_plus_offset(keys, offsets)
@@ -94,7 +94,7 @@ class Enigma
     message
   end
 
-  def shift_decrypt(message, message_key, message_date, encrypt = false)
+  def shift_decrypt(message, message_key, message_date, encrypt = false, crack = false)
     keys = build_key(message_key)
     offsets = build_offset(message_date)
     shift = key_plus_offset(keys, offsets)
