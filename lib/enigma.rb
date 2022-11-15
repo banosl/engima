@@ -121,17 +121,17 @@ class Enigma
     message
   end
 
-  def shift_crack(message, message_date, encrypt = true, crack = true)
+  def shift_crack(message, message_date, encrypt = false, crack = true)
     offsets = build_offset(message_date)
     shift = determine_shift(message)
-    binding.pry
+    # binding.pry
     # keys = shift_minus_offset(shift, offsets)
     
     a_shift(message, shift, encrypt, crack)
     b_shift(message, shift, encrypt, crack)
     c_shift(message, shift, encrypt, crack)
     d_shift(message, shift, encrypt, crack)
-
+# binding.pry
     message.reverse!
   end
 end
