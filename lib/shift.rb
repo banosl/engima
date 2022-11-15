@@ -17,6 +17,24 @@ module Shift
     end
   end
 
+#   def shift_loop_crack
+#     loop do
+#         if !alphabet.include?(message[count])
+#           count += 4
+#         else
+#           letter_to_replace = alphabet.rotate!(alphabet.index(message[count]))
+#           message.slice!(count)
+#           if encrypt == true
+#             message.insert(count, letter_to_replace.rotate(letter_shift).first)
+#           else
+#             message.insert(count, letter_to_replace.rotate(-letter_shift).first)
+#           end
+#           count += 4
+#         end
+#         break if count >= length
+#       end
+#   end
+
   def a_shift(message, shift, encrypt)
     length = message.length
     message.downcase!
