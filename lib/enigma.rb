@@ -23,10 +23,10 @@ class Enigma
   end
 
   def crack(message, message_date = Date.today.strftime('%m%d%y'))
-    shift_crack(message, message_date)
     offsets = build_offset(message_date)
     keys = shift_minus_offset(offsets)
     message_key = reverse_key(keys)
+    shift_crack(message, message_date)
 
     {
       decryption: message,

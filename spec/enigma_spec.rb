@@ -126,7 +126,6 @@ RSpec.describe Enigma do
       expect(@enigma.crack("vjqtbeaweqihssi", "291018")[:decryption]).to eq("hello world end")
       expect(@enigma.crack("vjqtbeaweqihssi", "291018")[:date]).to eq("291018")
       expect(@enigma.crack("vjqtbeaweqihssi", "291018")[:key]).to eq("08304")
-      binding.pry
       expect(@enigma.crack("vjqtbeaweqihssi")[:decryption]).to eq("hello world end")
     end
   end
