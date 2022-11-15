@@ -45,14 +45,11 @@ class Enigma
 
   def reverse_key(keys)
     reversed = ''
-    # binding.pry
-    keys.each do |key, num|
+    keys.each do |_key, num|
       reversed << ((num + 27).to_s[-1])
     end
-    # binding.pry
     reversed.insert(0, '0') until reversed.length == 5
     reversed
-    # binding.pry
   end
 
   def build_offset(message_date)
@@ -85,16 +82,13 @@ class Enigma
 
   def determine_shift(message)
     message.reverse!
-    # binding.pry
-    tail = "dne "
+    tail = 'dne '
     shift = {
-      a:(message[0].ord - tail[0].ord),
-      b:(message[1].ord - tail[1].ord),
-      c:(message[2].ord - tail[2].ord),
-      d:(message[3].ord - 123) + 27
+      a: (message[0].ord - tail[0].ord),
+      b: (message[1].ord - tail[1].ord),
+      c: (message[2].ord - tail[2].ord),
+      d: (message[3].ord - 123) + 27
     }
-    # binding.pry
-
   end
 
   def shift_encrypt(message, message_key, message_date, encrypt = true, crack = false)
@@ -126,14 +120,13 @@ class Enigma
   def shift_crack(message, message_date, encrypt = false, crack = true)
     offsets = build_offset(message_date)
     shift = determine_shift(message)
-    # binding.pry
     keys = shift_minus_offset(shift, offsets)
-    
+
     a_shift(message, shift, encrypt, crack)
     b_shift(message, shift, encrypt, crack)
     c_shift(message, shift, encrypt, crack)
     d_shift(message, shift, encrypt, crack)
-# binding.pry
+
     message.reverse!
     message_key = reverse_key(keys)
     {
