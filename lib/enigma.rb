@@ -23,15 +23,15 @@ class Enigma
   end
 
   def crack(message, message_date = Date.today.strftime('%m%d%y'))
-    offsets = build_offset(message_date)
-    keys = shift_minus_offset(offsets)
-    message_key = reverse_key(keys)
+    # offsets = build_offset(message_date)
+    # keys = shift_minus_offset(offsets)
+    # message_key = reverse_key(keys)
     shift_crack(message, message_date)
 
     {
       decryption: message,
       date: message_date,
-      key: message_key
+      # key: message_key
     }
   end
 
@@ -72,23 +72,24 @@ class Enigma
     }
   end
 
-  def shift_minus_offset(offsets)
+  def shift_minus_offset(shift, offsets)
     {
-      a: (14 - offsets[:a].to_i),
-      b: (86 - offsets[:b].to_i),
-      c: (32 - offsets[:c].to_i),
-      d: (8 - offsets[:d].to_i)
+      a: (shift[:a] - offsets[:a].to_i),
+      b: (shift[:b] - offsets[:b].to_i),
+      c: (shift[:c] - offsets[:c].to_i),
+      d: (shift[:d] - offsets[:d].to_i)
     }
   end
 
   def determine_shift(message)
-    message.reverse!.slice!(4..-1)
+    message.reverse!
+    # binding.pry
     tail = "dne "
     shift = {
       a:(message[0].ord - tail[0].ord),
       b:(message[1].ord - tail[1].ord),
       c:(message[2].ord - tail[2].ord),
-      d:(message[3].ord - 123)
+      d:(message[3].ord - 123) + 27
     }
     # binding.pry
 
@@ -120,10 +121,12 @@ class Enigma
     message
   end
 
-  def shift_crack(message, message_date, encrypt = false, crack = true)
+  def shift_crack(message, message_date, encrypt = true, crack = true)
     offsets = build_offset(message_date)
-    keys = shift_minus_offset(offsets)
-    shift = key_plus_offset(keys, offsets)
+    shift = determine_shift(message)
+    binding.pry
+    # keys = shift_minus_offset(shift, offsets)
+    
     a_shift(message, shift, encrypt, crack)
     b_shift(message, shift, encrypt, crack)
     c_shift(message, shift, encrypt, crack)
