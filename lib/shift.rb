@@ -4,12 +4,12 @@ module Shift
       if !alphabet.include?(message[count])
         count += 4
       else
-        letter = alphabet.rotate!(alphabet.index(message[count]))
+        letter_to_replace = alphabet.rotate!(alphabet.index(message[count]))
         message.slice!(count)
         if encrypt == true
-          message.insert(count, letter.rotate(letter_shift).first)
+          message.insert(count, letter_to_replace.rotate(letter_shift).first)
         else
-          message.insert(count, letter.rotate(-letter_shift).first)
+          message.insert(count, letter_to_replace.rotate(-letter_shift).first)
         end
         count += 4
       end
