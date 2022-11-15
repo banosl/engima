@@ -22,6 +22,17 @@ class Enigma
     }
   end
 
+  def crack(message, message_date = Date.today.strftime('%m%d%y'))
+    offsets = build_offset(message_date)
+    binding.pry
+    
+    {
+      decryption: message,
+      date: message_date,
+      key: message_key
+    }
+  end
+
   def build_key(message_key)
     {
       a: "#{message_key[0]}#{message_key[1]}",
@@ -47,6 +58,15 @@ class Enigma
       b: keys[:b].to_i + offsets[:b].to_i,
       c: keys[:c].to_i + offsets[:c].to_i,
       d: keys[:d].to_i + offsets[:d].to_i
+    }
+  end
+
+  def shift_minus_offset(offsets)
+    {
+      a: (14 - offsets[:a].to_i),
+      b: (86 - offsets[:b].to_i),
+      c: (32 - offsets[:c].to_i),
+      d: (8 - offsets[:d].to_i)
     }
   end
 
